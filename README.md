@@ -73,7 +73,8 @@ Please follow the installation guide of the web browser of your choice!
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-Open index.html to go to the homepage of the website. At the website, you can sketch on the grids. You can adjust the size of each grid, so that the sketch resolution is higher. The maximal resolution is 100x100 grids. You can also clear the board and start anew with the clear button.
+Open index.html to go to the homepage of the website.<br> 
+At the website, you can sketch on the grids. You can choose which ink color to use and also which background color the canvas should have. You can adjust the size of each grid, so that the sketch resolution is higher. The maximal resolution is 100x100 grids. You can also clear the board and start anew with the clear button. And lastly, the erase button is there, in case you just want to erase some wrong pixels.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTACT -->
