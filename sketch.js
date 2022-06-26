@@ -10,7 +10,7 @@ const sliderText = document.querySelector('.sliderText');
 let sliderValue = slider.valueAsNumber;
 
 // create a black canvas with the amount of grids as specified in the slider value
-function createCanvas(sliderValue) {
+function createCanvas() {
   // Determine the size of each div pixel according to the slider value
   const divWidth = parseInt(getComputedStyle(canvasContainer).width, 10) / sliderValue;
   const divHeight = parseInt(getComputedStyle(canvasContainer).height, 10) / sliderValue;
@@ -43,7 +43,6 @@ function createCanvas(sliderValue) {
        });
 
        div.addEventListener('mousedown', () => {
-         div.style.backgroundColor = inkColor;
          mousedown = true;
        });
 
@@ -70,14 +69,14 @@ function removeCanvas() {
     canvasContainer.firstChild.remove();
   }
 }
-createCanvas(sliderValue);
+createCanvas();
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = () => {
   sliderValue = slider.valueAsNumber;
   sliderText.textContent = `${sliderValue} x ${sliderValue}`;
   removeCanvas();
-  createCanvas(sliderValue);
+  createCanvas();
 };
 
 // Change text color of all color buttons according to the text
@@ -117,7 +116,7 @@ buttons2.forEach((button) => {
 const clearButton = document.querySelector('.clearButton');
 function clear() {
   removeCanvas();
-  createCanvas(slider.valueAsNumber);
+  createCanvas();
 }
 clearButton.onclick = () => { clear(); };
 
