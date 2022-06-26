@@ -88,7 +88,6 @@ Project Link: [https://github.com/theodoroesjoshua/Etch-a-Sketch](https://github
 <!-- Credits -->
 ## Credits
 ### Images
-Background Image by <a href="https://unsplash.com/@meinayin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Meina Yin</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> <br>
 Tab Icon <a href="https://www.flaticon.com/free-icons/sketch" title="sketch icons">Sketch icons created by Freepik - Flaticon</a>
   
 <p align="right">(<a href="#top">back to top</a>)</p>
