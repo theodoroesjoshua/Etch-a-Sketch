@@ -55,7 +55,7 @@
 A small web development project to practise. Through this project, I'm aiming to get used to manipulating DOM with JavaScript (and to flex my ability to do it).
 
 ### Built With
-HTML and CSS
+HTML, CSS and JavaScript
 
 <!-- GETTING STARTED -->
 ## Getting Started
