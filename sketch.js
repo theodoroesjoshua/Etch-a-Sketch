@@ -1,5 +1,8 @@
-let inkColor = 'black';
-let bgColor = 'white';
+let inkColor = 'black'; // default inkColor
+let bgColor = 'white'; // default canvas background color
+let mousedown = false; // to determine is the mouse is currently clicked down or not
+
+const canvasContainer = document.querySelector('.sketchContainer');
 
 // Change text color of all color buttons according to the text
 // and add an event listener to change the ink color
@@ -14,7 +17,7 @@ buttons1.forEach((button) => {
 });
 
 // Change text color of all bg color buttons according to the text
-// and add an event listener to change the board background color
+// and add an event listener to change the canvas background color
 const bgColorButtons = document.querySelector('.bgColorButtons');
 const buttons2 = bgColorButtons.querySelectorAll('button');
 buttons2.forEach((button) => {
@@ -22,16 +25,79 @@ buttons2.forEach((button) => {
   button.setAttribute('style', `color: ${color}`);
   button.addEventListener('click', () => {
     bgColor = color;
+    canvasContainer.style.backgroundColor = bgColor;
   });
 });
 
-const canvas = document.querySelector('.sketchContainer');
-const div = document.createElement('div');
+// create canvas with the amount of grids as specified in the slider value
+function createCanvas(sliderValue) {
+  // Determine the size of each div pixel according to the slider value
+  const divWidth = parseInt(getComputedStyle(canvasContainer).width, 10) / sliderValue;
+  const divHeight = parseInt(getComputedStyle(canvasContainer).height, 10) / sliderValue;
+
+  // Looping to make each div pixels, the first loop is for each divs line
+  for (let i = 0; i < sliderValue; i++) {
+    // The canvasContainer has display: flex and flex-direction: column property
+    // Each iteration of this loop will create a lineContainer
+    // Each line takes the whole container width.
+    const lineContainer = document.createElement('div');
+    lineContainer.style.display = 'flex'; // each line container is also a flexbox itself
+    lineContainer.style.flex = '1'; // the line divs containers will grow and shrink accordingly to fit the container height
+
+    // Create square divs to fit into each lineContainer
+    for (let j = 0; j < sliderValue; j++) {
+      const div = document.createElement('div');
+      div.style.width = `${divWidth}`;
+      div.style.height = `${divHeight}`;
+      div.style.backgroundColor = bgColor;
+      div.style.flex = '1'; // each square div will grow and shrink accordingly to fit into the lineContainer width.
+      div.style.borderStyle = 'solid';
+      div.style.borderWidth = 'thin';
+      div.style.borderColor = 'black';
+
+      // on click, the div will change its background color to the chosen ink color
+      // should also function if the mouse is being dragged while clicked down
+      div.addEventListener('click', () => {
+        div.style.backgroundColor = inkColor;
+      });
+      div.addEventListener('mousedown', () => {
+        mousedown = true;
+      });
+      div.addEventListener('mouseup', () => {
+        mousedown = false;
+      });
+      div.addEventListener('mousemove', () => {
+        if (mousedown) {
+          div.style.backgroundColor = inkColor;
+        }
+      });
+      // append the divs as children to the lineContainer
+      lineContainer.appendChild(div);
+    }
+    // append the lineContainers as children to the canvasContainer
+    canvasContainer.appendChild(lineContainer);
+  }
+}
+
+// remove all the grids in the canvas
+function removeCanvas() {
+  let last;
+  last = canvasContainer.lastChild;
+  while (last) {
+    canvasContainer.removeChild(last);
+    last = canvasContainer.lastChild;
+  }
+}
 
 // slider functions
 const slider = document.querySelector('.slider');
 const sliderText = document.querySelector('.sliderText');
+createCanvas(slider.valueAsNumber);
+
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = () => {
-  sliderText.textContent = `${slider.value} x ${slider.value}`;
+  const sliderValue = slider.valueAsNumber;
+  sliderText.textContent = `${sliderValue} x ${sliderValue}`;
+  removeCanvas();
+  createCanvas(sliderValue);
 };
