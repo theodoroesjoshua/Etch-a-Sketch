@@ -1,35 +1,15 @@
 let inkColor = 'black'; // default inkColor
 let bgColor = 'white'; // default canvas background color
-let mousedown = false; // to determine is the mouse is currently clicked down or not
+let mousedown = false; // to know if the mouse is being clicked down
 
 const canvasContainer = document.querySelector('.sketchContainer');
 
-// Change text color of all color buttons according to the text
-// and add an event listener to change the ink color
-const colorButtons = document.querySelector('.colorButtons');
-const buttons1 = colorButtons.querySelectorAll('button');
-buttons1.forEach((button) => {
-  const color = button.textContent.toLowerCase();
-  button.setAttribute('style', `color: ${color}`);
-  button.addEventListener('click', () => {
-    inkColor = color;
-  });
-});
+// slider functions
+const slider = document.querySelector('.slider');
+const sliderText = document.querySelector('.sliderText');
+let sliderValue = slider.valueAsNumber;
 
-// Change text color of all bg color buttons according to the text
-// and add an event listener to change the canvas background color
-const bgColorButtons = document.querySelector('.bgColorButtons');
-const buttons2 = bgColorButtons.querySelectorAll('button');
-buttons2.forEach((button) => {
-  const color = button.textContent.toLowerCase();
-  button.setAttribute('style', `color: ${color}`);
-  button.addEventListener('click', () => {
-    bgColor = color;
-    canvasContainer.style.backgroundColor = bgColor;
-  });
-});
-
-// create canvas with the amount of grids as specified in the slider value
+// create a black canvas with the amount of grids as specified in the slider value
 function createCanvas(sliderValue) {
   // Determine the size of each div pixel according to the slider value
   const divWidth = parseInt(getComputedStyle(canvasContainer).width, 10) / sliderValue;
@@ -47,6 +27,7 @@ function createCanvas(sliderValue) {
     // Create square divs to fit into each lineContainer
     for (let j = 0; j < sliderValue; j++) {
       const div = document.createElement('div');
+      div.classList.add('pixel');
       div.style.width = `${divWidth}`;
       div.style.height = `${divHeight}`;
       div.style.backgroundColor = bgColor;
@@ -58,19 +39,23 @@ function createCanvas(sliderValue) {
       // on click, the div will change its background color to the chosen ink color
       // should also function if the mouse is being dragged while clicked down
       div.addEventListener('click', () => {
-        div.style.backgroundColor = inkColor;
+         div.style.backgroundColor = inkColor;
+       });
+
+       div.addEventListener('mousedown', () => {
+         div.style.backgroundColor = inkColor;
+         mousedown = true;
+       });
+
+       div.addEventListener('mouseup', () => {
+         mousedown = false;
       });
-      div.addEventListener('mousedown', () => {
-        mousedown = true;
-      });
-      div.addEventListener('mouseup', () => {
-        mousedown = false;
-      });
+
       div.addEventListener('mousemove', () => {
         if (mousedown) {
           div.style.backgroundColor = inkColor;
         }
-      });
+     });
       // append the divs as children to the lineContainer
       lineContainer.appendChild(div);
     }
@@ -81,23 +66,65 @@ function createCanvas(sliderValue) {
 
 // remove all the grids in the canvas
 function removeCanvas() {
-  let last;
-  last = canvasContainer.lastChild;
-  while (last) {
-    canvasContainer.removeChild(last);
-    last = canvasContainer.lastChild;
+  while (canvasContainer.firstChild) {
+    canvasContainer.firstChild.remove();
   }
 }
-
-// slider functions
-const slider = document.querySelector('.slider');
-const sliderText = document.querySelector('.sliderText');
-createCanvas(slider.valueAsNumber);
+createCanvas(sliderValue);
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = () => {
-  const sliderValue = slider.valueAsNumber;
+  sliderValue = slider.valueAsNumber;
   sliderText.textContent = `${sliderValue} x ${sliderValue}`;
   removeCanvas();
   createCanvas(sliderValue);
 };
+
+// Change text color of all color buttons according to the text
+// and add an event listener to change the ink color
+const colorButtons = document.querySelector('.colorButtons');
+const buttons1 = colorButtons.querySelectorAll('button');
+buttons1.forEach((button) => {
+  const color = button.textContent.toLowerCase();
+  button.setAttribute('style', `color: ${color}`);
+  button.addEventListener('click', () => {
+    inkColor = color;
+  });
+});
+
+// Change the background color of each pixel
+function changeBackgroundColor(newColor) {
+  const pixels = document.querySelectorAll('.pixel');
+  pixels.forEach((pixel) => {
+    pixel.style.backgroundColor = newColor;
+  });
+}
+
+// Change text color of all bg color buttons according to the text
+// and add an event listener to change the canvas background color
+const bgColorButtons = document.querySelector('.bgColorButtons');
+const buttons2 = bgColorButtons.querySelectorAll('button');
+buttons2.forEach((button) => {
+  const color = button.textContent.toLowerCase();
+  button.setAttribute('style', `color: ${color}`);
+  button.addEventListener('click', () => {
+    bgColor = color;
+    changeBackgroundColor(bgColor);
+  });
+});
+
+// Clear button function
+const clearButton = document.querySelector('.clearButton');
+function clear() {
+  removeCanvas();
+  createCanvas(slider.valueAsNumber);
+}
+clearButton.onclick = () => { clear(); };
+
+// Eraser button function
+// Simulating an eraser by changing the ink color to be the same as the canvas background color
+const eraserButton = document.querySelector('.clearButton');
+function erase() {
+  inkColor = bgColor;
+}
+eraserButton.onclick = () => { erase(); };
