@@ -87,6 +87,4 @@ Project Link: [https://github.com/theodoroesjoshua/Etch-a-Sketch](https://github
 
 <!-- Credits -->
 ## Credits
-### Images
-https://www.photographytalk.com/landscape-photography/8493-how-to-create-an-amazing-landscape-photo
 <p align="right">(<a href="#top">back to top</a>)</p>
