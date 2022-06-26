@@ -11,35 +11,45 @@
     <title>Etch-a-Sketch</title>
 </head>
 <body>
-    <div class="colorButtons">
-        <button type="button">Red</button>
-        <button type="button">Green</button>
-        <button type="button">Blue</button>
-        <button type="button">Black</button>
-        <button type="button">White</button>
-        <button type="button">Yellow</button>
-        <button type="button">Pink</button>
-    </div>
+    <div class="header">Welcome to the Website</div>
+
+    <div class="content">
+        <div class="buttonsTitle">Ink Color</div>
+        <div class="colorButtons">
+            <button type="button">Red</button>
+            <button type="button">Green</button>
+            <button type="button">Blue</button>
+            <button type="button">Black</button>
+            <button type="button">White</button>
+            <button type="button">Yellow</button>
+            <button type="button">Pink</button>
+        </div>
+        <div class="buttonsTitle">Canvas Background Color</div>
+        <div class="bgColorButtons">
+            <button type="button">Red</button>
+            <button type="button">Green</button>
+            <button type="button">Blue</button>
+            <button type="button">Black</button>
+            <button type="button">White</button>
+            <button type="button">Yellow</button>
+            <button type="button">Pink</button>
+        </div>
     
-    <div class="bgColorButtons">
-        <button type="button">Red</button>
-        <button type="button">Green</button>
-        <button type="button">Blue</button>
-        <button type="button">Black</button>
-        <button type="button">White</button>
-        <button type="button">Yellow</button>
-        <button type="button">Pink</button>
-    </div>
- 
-    <div class="container">
-        <div class="containerTitle">Sketch on me!</div>
-        <div class="sketchContainer"></div> 
+        <div class="container">
+            <div class="containerTitle">Sketch on me!</div>
+            <div class="sketchContainer"></div> 
+            <div class="pixelSliderContainer">
+                <div class="sliderText">50 x 50</div>
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            </div>
+        </div>
+
+        <div class="modeButtons">
+            <button type="button" class="clearButton">CLEAR</button>
+            <button type="button" class="eraserButton">ERASER</button>
+        </div>
     </div>
 
-    <div class="modeButtons">
-        <button type="button" class="clearButton">CLEAR</button>
-        <button type="button" class="eraserButton">ERASER</button>
-    </div>
-
+    <div class="footer">Copyright © Joshua Richard Theodoroes 2022</div>
 </body>
 </html>
