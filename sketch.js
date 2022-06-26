@@ -113,16 +113,16 @@ buttons2.forEach((button) => {
 });
 
 // Clear button function
+// Change the background color of each div to the chosen canvas background color
 const clearButton = document.querySelector('.clearButton');
 function clear() {
-  removeCanvas();
-  createCanvas();
+  changeBackgroundColor(bgColor);
 }
 clearButton.onclick = () => { clear(); };
 
 // Eraser button function
 // Simulating an eraser by changing the ink color to be the same as the canvas background color
-const eraserButton = document.querySelector('.clearButton');
+const eraserButton = document.querySelector('.eraserButton');
 function erase() {
   inkColor = bgColor;
 }
